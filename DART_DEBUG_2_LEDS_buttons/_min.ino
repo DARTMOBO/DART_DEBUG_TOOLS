@@ -118,11 +118,11 @@ if (valuetable[ledE+max_modifiers]==note && bit_read(3,ledE+max_modifiers) ==1  
 
 void load_preset_base() {
     for (int i = 0; i <max_modifiers; i++) {
-  typetable[i] = EEPROM.read(i);
-  valuetable[i] = EEPROM.read(i+64);
-  typetable[i+max_modifiers] = EEPROM.read(i+(512));
-  valuetable[i+max_modifiers] = EEPROM.read(i+64+(512));
-  lightable[i] = EEPROM.read(i+448);
+  //typetable[i] = EEPROM.read(i);
+//  valuetable[i] = EEPROM.read(i+64);
+ // typetable[i+max_modifiers] = EEPROM.read(i+(512));
+ // valuetable[i+max_modifiers] = EEPROM.read(i+64+(512));
+ // lightable[i] = EEPROM.read(i+448);
  }
 }
 
@@ -135,24 +135,24 @@ void load_preset_base() {
 // if (numero > 0) numero = 1;
 
    for (byte i = 0; i <max_modifiers; i++) {
-    modetable[i]= EEPROM.read(i+128+(numero*512));
+  //  modetable[i]= EEPROM.read(i+128+(numero*512));
     setup_mempos(i);
-  dmxtable[i]= EEPROM.read(i+192+(numero*512));
+ // dmxtable[i]= EEPROM.read(i+192+(numero*512));
   if (i == mouse_mempos) {
-    minvalue[i] = remapper(EEPROM.read(i+256+(numero*512))-1); 
-    maxvalue[i] = remapper(EEPROM.read(i+320+(numero*512))-1);
+ //   minvalue[i] = remapper(EEPROM.read(i+256+(numero*512))-1); 
+ //   maxvalue[i] = remapper(EEPROM.read(i+320+(numero*512))-1);
     if (dmxtable[i] != 0) // quando vengono attivate le funzioni MOUSE, XY del joystick vengono impostate su BLIND INPUT - in tal modo si evitano conflitti
     {modetable[minvalue[mouse_mempos]] = 19;
     modetable[maxvalue[mouse_mempos]] = 19;}
   }
   else {
-    minvalue[i]= EEPROM.read(i+256+(numero*512)); // if (dmxtable[mouse_mempos] == 2)
-    maxvalue[i] =EEPROM.read(i+320+(numero*512));
+  //  minvalue[i]= EEPROM.read(i+256+(numero*512)); // if (dmxtable[mouse_mempos] == 2)
+  //  maxvalue[i] =EEPROM.read(i+320+(numero*512));
   }
   
   // quando da editor si specifica la posizione su ircuito degli assi x e y - viene usato il remap da numerazione semplificata a numerazione normale
  //  if (i == mouse_mempos) maxvalue[i] = remapper(EEPROM.read(i+320+(numero*512))-1); else  maxvalue[i] =EEPROM.read(i+320+(numero*512));
- qwertyvalue[i] =EEPROM.read(i+384+(numero*512));
+// qwertyvalue[i] =EEPROM.read(i+384+(numero*512));
  
 
  }
@@ -257,10 +257,10 @@ bitWrite(scala[numero+2],i+7,  bitRead(maxvalue[encoder_mempos[numero]+max_modif
        // 448-512   -    960 
        
  
-        EEPROM.write(memoryposition+64,note); // value
+   //     EEPROM.write(memoryposition+64,note); // value
        }
        else{
-        EEPROM.write(memoryposition+512+64-64,note);  // value 2nd
+ //       EEPROM.write(memoryposition+512+64-64,note);  // value 2nd
          }
          
        
@@ -270,11 +270,11 @@ bitWrite(scala[numero+2],i+7,  bitRead(maxvalue[encoder_mempos[numero]+max_modif
      case 1 :
      if (memoryposition < 64) {
   
-         EEPROM.write(memoryposition+320,note);  // max
-        EEPROM.write(memoryposition+256,velocity);     // min
+   //      EEPROM.write(memoryposition+320,note);  // max
+   //     EEPROM.write(memoryposition+256,velocity);     // min
  } else{
-          EEPROM.write(memoryposition+512+320-64,note);  // max 2nd
-        EEPROM.write(memoryposition+512+256-64,velocity);     // min 2nd
+  //        EEPROM.write(memoryposition+512+320-64,note);  // max 2nd
+ //       EEPROM.write(memoryposition+512+256-64,velocity);     // min 2nd
    }
    
  
@@ -286,7 +286,7 @@ bitWrite(scala[numero+2],i+7,  bitRead(maxvalue[encoder_mempos[numero]+max_modif
      case 2 :
      if (memoryposition < 64) { 
      
-  EEPROM.write(memoryposition+128,note); // MODE
+ // EEPROM.write(memoryposition+128,note); // MODE
 /*
  if (note == 26) // se arriva un general_mempos, mi assicuro che sia l'unico in memoria;
 
@@ -298,10 +298,10 @@ if (EEPROM.read(i+128) == note) EEPROM.write(i+128,19);}  }
    }*/
   
 // EEPROM.write(memoryposition+128+512-64,note);
-  EEPROM.write(memoryposition+192,velocity); // dmx memoryposition
+ // EEPROM.write(memoryposition+192,velocity); // dmx memoryposition
 //   Serial.print("-memorypos-scrivo-dmx1-");Serial.println(memoryposition);
 //  Serial.print("-velocity-scrivo-dmx1-");Serial.println(velocity);
-  EEPROM.write(memoryposition+448,type-128); //     LED
+ // EEPROM.write(memoryposition+448,type-128); //     LED
  
  } else{
    
@@ -309,9 +309,9 @@ if (EEPROM.read(i+128) == note) EEPROM.write(i+128,19);}  }
    
    
   
-   EEPROM.write(memoryposition+128+512-64,note); // MODE 2ND
+ //  EEPROM.write(memoryposition+128+512-64,note); // MODE 2ND
 
-  EEPROM.write(memoryposition+192+512-64,velocity); // dmx 2nd
+//  EEPROM.write(memoryposition+192+512-64,velocity); // dmx 2nd
 //   Serial.print("-velocity-scrivo-dmx2-");Serial.println(velocity);
   // EEPROM.write(memoryposition+896,type-128); //              led
    }
@@ -321,15 +321,15 @@ if (EEPROM.read(i+128) == note) EEPROM.write(i+128,19);}  }
      case 3 : 
      if (memoryposition < 64) {
 
-  EEPROM.write(memoryposition,type-176+(velocity*16)+144); // type // velocity è il miditype proveniente dall'editor numerato da 0 a 6 - viene moltiplicato per 16 e sistemato da 144 in poi a seconda del canale
+ // EEPROM.write(memoryposition,type-176+(velocity*16)+144); // type // velocity è il miditype proveniente dall'editor numerato da 0 a 6 - viene moltiplicato per 16 e sistemato da 144 in poi a seconda del canale
  // type contiene ovviamente anche l'informazione del canale
-     EEPROM.write(memoryposition+384,note); //    memorizzato a partire dalla posizione 384
+  //   EEPROM.write(memoryposition+384,note); //    memorizzato a partire dalla posizione 384
  } else{
 
 
-       EEPROM.write(memoryposition+512-64,type-176+(velocity*16)+144);  // type 2nd
+     //  EEPROM.write(memoryposition+512-64,type-176+(velocity*16)+144);  // type 2nd
        
-   EEPROM.write(memoryposition+384+512-64,note); //  trying not to cross memory limit - wertyvalue stored 64 memory slots before
+  // EEPROM.write(memoryposition+384+512-64,note); //  trying not to cross memory limit - wertyvalue stored 64 memory slots before
  }
  
      break;

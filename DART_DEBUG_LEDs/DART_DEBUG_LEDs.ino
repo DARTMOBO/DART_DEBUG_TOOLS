@@ -12,7 +12,7 @@
 
 //#include <MIDIUSB.h>
 // #include "DmxSimple.h"
-#include <EEPROM.h>
+//#include <EEPROM.h>
 #include "Shifter.h"
 //#include "CapacitiveSensor.h"
 //#include <Mouse.h>
