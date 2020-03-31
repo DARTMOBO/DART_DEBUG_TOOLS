@@ -224,6 +224,3 @@ readingsXen[2] = (cs_4_2.capacitiveSensorRaw(limit_touch)/2);
  lastbutton[encoder_mempos[0]] = 64;
  
  }
-
-
-

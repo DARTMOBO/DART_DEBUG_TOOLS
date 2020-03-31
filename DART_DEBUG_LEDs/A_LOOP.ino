@@ -39,6 +39,13 @@ if (cycletimer < 250 ) cycletimer++;
 // if (shifterwrite ==1) 
  {shifter.write(); shifterwrite=0;}
   }
+
+shifter.setAll(HIGH);
+shifter.write(); 
+delay(400);
+shifter.setAll(LOW); 
+shifter.write();
+delay(400);
  
 }
 

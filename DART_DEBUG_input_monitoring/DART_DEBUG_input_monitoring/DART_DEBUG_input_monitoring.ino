@@ -1,41 +1,51 @@
+///////////////////////////
+// DART_SKETCH   v1.69   //
+// Massimiliano Marchese //
+// Piero pappalardo      //
+// www.dartmobo.com      //
+///////////////////////////
 
+byte MONITORING_IN = 34; // fare riferimento alla numerazione nuova - ved immagine contenuta in editor/data
 
-////////////////////////////
-//
-// DART Sketch - 
-// Massimiliano Marchese
-// Piero pappalardo
-// www.dartmobo.com
-//
-////////////////////////////
+#define main_encoder 0               // 1 = enabled // 0 = disabled // MAIN ENCODER_ 
+#define capacitivesensor_active 0    // 1 = enabled // 0 = disabled // CAPACITIVE SENSORS_
+#define shifter_active  1            // 1 = enabled // 0 = disabled // SHIFT REGISTERS_
+#define DMX_active   0               // 1 = enabled // 0 = disabled // disable also from _DART_Dmx_out.cpp to free more memory
+#define pullups_active 1             // 1 = enabled // 0 = disabled // pullup resistors
+#define stratos 0                    // 1 = enabled // 0 = disabled // Stratos sketch version.
+#define touch_version 1              // 1 = 680k //  2 = 10m //     resistor settings for touch sensing circuit
+#define mouse_block 1 // mouse messages are stopped after 2 seconds of repeated activity
+#define arrows_block 0               // arrow key messages are stopped after 2 seconds of repeated activity
+#define page_LEDs 0                  // 1 = page LEDs active
+#define LED_rings 0                  // 1 = LED rings active
+#define encoders_generic 0           // 1 = enabled 
+#define MIDI_IN_block 0              // 1 = MIDI IN blocked
+#define MIDI_OUT_block 0             // 1 = MIDI out blocked
+#define MIDI_thru 0                  // 1 = MIDI Thru active
+#define autosend 0
 
- 
-#define main_encoder 1 // disabilita l'encoder principale
-#define capacitivesensor_active  1 // 1 = capacitivesensor attivato
-#define shifter_active  1
-#define DMX_active  0 // 1 = attiva // 0 == disattiva // disattivare anche da dmxsimple .cpp per liberare tutta la memoria
-#define pullups_active 0 // 
-#define stratos 0 // 
+//---------------------------------------------
+
 
 #if defined (__AVR_ATmega32U4__)  
-  #include "MIDIUSB.h"
- #include <Mouse.h>
-  #include <Keyboard.h>
+#include "_DART_MIDI.h"
+#include <Mouse.h>
+#include <Keyboard.h>
 
  midiEventPacket_t rx;
 #endif
 
  #if (capacitivesensor_active == 1)
- #include "CapacitiveSensor.h"
+ #include "_DART_Touch_Sensor.h"
 
 #if (stratos == 1 )
-CapacitiveSensor   cs_4_2 = CapacitiveSensor(8,9); // stratos
+CapacitiveSensor   cs_4_2[1] = {CapacitiveSensor(8,9);} // stratos
 
 #endif
 
 #if (stratos == 0 )
-  CapacitiveSensor   cs_4_2 = CapacitiveSensor(8,7);
-  CapacitiveSensor   cs_4_3 = CapacitiveSensor(8,9);  // one - stratos
+  CapacitiveSensor   cs_4_2[2] = {CapacitiveSensor(8,7),CapacitiveSensor(8,9)};
+ //  CapacitiveSensor   cs_4_3 = CapacitiveSensor(8,9);  // one - stratos
  #endif
  
 #endif
@@ -45,15 +55,17 @@ CapacitiveSensor   cs_4_2 = CapacitiveSensor(8,9); // stratos
  // #if defined DMX_active 
  #if (DMX_active == 1 && stratos == 0)
 
-#include "DmxSimple.h"
+#include "_DART_DMX_Out.h"
 #endif
 
 
-#include "EEPROM.h"
+#include "_DART_EEPROM.h"
 
 #if (shifter_active == 1 && stratos == 0)
-#include "Shifter.h"
+#include "_DART_Shifter.h"
 #endif
+
+
 
 
   byte do_; // serve per diminuire la velocità i lettura encoder, daltando tot cicli.
@@ -64,7 +76,7 @@ const int minbeam = 290;
 
 ///////////////////////////////////////////////////////////////////////
 
-   const byte encledtable[16]= { 4,5,6,7, 12,13,14,15, 3,2,1,0, 11,10,9,8,};  // dart one 
+ //  const byte encledtable[16]= { 4,5,6,7, 12,13,14,15, 3,2,1,0, 11,10,9,8,};  // dart one 
  
  // const byte encledtable[16]= { 4,5,6,7, 12,13,14,15, 3,2,1,16, 11,10,9,8,};  // dart one - darietto
   
@@ -77,7 +89,7 @@ const int minbeam = 290;
  // const byte encledtable[16] = { 8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15};  // vector inverted
 
 
-// const byte encledtable[16] = { 12,13,14,14,15,0,7,7,1,6,2,2,5,3,4,4};  // kombat
+  const byte encledtable[16] = { 12,13,14,14,15,0,7,7,1,6,2,2,5,3,4,4};  // kombat
 
 //const byte  encledtable2[16]  = {11,10,9,8,60,60,60,60,8,9,10,11,0,1,2,3,};
 
@@ -86,7 +98,7 @@ const int minbeam = 290;
  //  const byte qwertymod[2];
 
 
- const byte *const qwertymod[33] PROGMEM = { // da 0 a 24 ci sono i modificatori - da 25 a 32 controlli mouse
+ const PROGMEM  byte qwertymod[33] = { // da 0 a 24 ci sono i modificatori - da 25 a 32 controlli mouse
    
  0,   // niente 
  194, // f1
@@ -113,7 +125,7 @@ const int minbeam = 290;
  129, // left shift
  130, // left alt
  
- 178, // backspace
+ 179, // tab
  176, // return
  177, // esc
  212, // delete
@@ -126,7 +138,7 @@ const int minbeam = 290;
 
 
 
- const byte *const input_remap[] PROGMEM = {6,8,4,2,7,1,5,3,};
+ const PROGMEM byte  input_remap[]  = {6,8,4,2,7,1,5,3,};
 byte remapper(byte input) 
 {return  (( pgm_read_byte(input_remap + ((input)-(((input)/8)*8)) ) +(((input)/8)*8))) -1;}
 
@@ -135,7 +147,7 @@ byte remapper(byte input)
 // const byte select[] = {4,5,6}; // pins connected to the 4051 input select lines
 
 //|||||||||||||||||||||||||||||||||
-int  auxx ; // activate auxiliary preset at startup;
+byte  eeprom_preset_active ; // activate auxiliary preset at startup;
 byte channel;
 byte plexer;
 byte chan;
@@ -154,7 +166,7 @@ byte mouse_wheel_speed_counter;
 volatile byte encoder_mempos[2];             // da editor si scegli quale sarÃƒÆ’Ã‚Â  la memoryposition dell'encoder - la cosa rende piÃƒÆ’Ã‚Â¹ semplice creare un nuovo layout editor - masta mettere mode su encoder1
 volatile byte touch_mempos[2];
 byte V_touch_regulator[2] = {1,1};
-byte mouse_mempos = 58;
+byte mouse_mempos ;
 byte PADS_mempos;
 byte distance_mempos;
 byte page_mempos;
@@ -184,9 +196,9 @@ volatile  unsigned int padVal2; //
 //////////////////////////////////////////////////////////////////////////////////   touch sensor
  byte limit_touch = 250;
 
-volatile byte  readingsXen[3] ;      // the readings from the analog input
+volatile byte  readingsXen[2][3] ;      // the readings from the analog input
 // byte readingsXenn = 250;
-volatile byte readingsXen2[3];
+// volatile byte readingsXen2[3];
 // volatile byte readingsXenn2;
 //const byte Xenlimit = 6;
 // const byte Xendivider = 2;
@@ -297,26 +309,90 @@ byte scala_reset;
 
 
 void loop () {
+if (cycletimer < 250 ) cycletimer++;
 
+
+#if (MIDI_IN_block == 0)
+
+  
+    #if defined (__AVR_ATmega32U4__)               // USB MIDI in
+  do {                                         
+    rx = MidiUSB.read();
+    if (rx.header != 0) {
+ incomingByte  = rx.byte1; midifeedback();
+ incomingByte  = rx.byte2; midifeedback();
+ incomingByte  = rx.byte3; midifeedback();
+    }
+  } while (rx.header != 0);
  
+   #if ( stratos == 0) 
+                                                  // DIN MIDI in
+  if (Serial1.available() > 0) { 
+  incomingByte = Serial1.read();
+  midifeedback(); 
+  } 
+  else 
+  #endif
+  
+#endif
+
+
+
+
+
+  #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__) 
+ if (Serial.available() > 0) { 
+  incomingByte = Serial.read();
+  midifeedback();  } 
+  else 
+  #endif
+
+      
+  if (openeditor != 1) 
+  #endif 
+   
   {
 
     
-    MSB[0] = digitalRead(2); //MSB = most significant bit
-   LSB[0] = digitalRead(3); //LSB = least significant bit
-  Serial.println(MSB[0]);
-  Serial.println(LSB[0]);
-  Serial.println("-");
-  delay (100);
+  
+ indexXen++; if (indexXen == 3) indexXen = 0;
+   #if (capacitivesensor_active > 0)
+     touch_sensors(0);
+          #if (stratos == 0)
+         if (dmxtable[general_mempos] >1) touch_sensors(1);
+          #endif
+    #endif
+
+  #if (stratos == 1)  
+  AIN_stratos();
+   #endif
+  #if (stratos == 0)  
+  AIN();
+   #endif
+
+
+    #if (shifter_active == 1 && stratos == 0)
+  if (qwertyvalue[general_mempos] > 2)    buttonledefx();  
+    #endif
+ 
+ 
+ #if (autosend == 1)
+ // autosend_();
+  #endif
+      
+  pageswitch();
+    
+   
+
+ //shifter.setAll(LOW);     
+// if (valuetable[general_mempos] == 0)  shifter.write();
+     #if (shifter_active == 1 && stratos == 0)
+     if (shifterwrite ==1 && valuetable[general_mempos] == 0)  {shifter.write(); shifterwrite=0;
+      }
+     #endif
  
   }
- //  test1();
 
- //Serial.println(maxvalue[general_mempos]);
- //Serial.println(general_mempos);
-// Serial.println("a");
- // delay (1);
- 
 }
 
 
@@ -324,6 +400,35 @@ void loop () {
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void autosend_()
+{
+for(byte c=0; c<48; c++)
+{
+  if (c == 25)
+  {
+    Serial.print("value: "); Serial.println(valuetable[c]);
+    Serial.print("mode: "); Serial.println(modetable[c]);
+    Serial.print("position: "); Serial.println(c);
+    Serial.println("-----");
+    }
+    
+  }
+  delay(1000);
+/*  for(byte c=0; c<48; c++)
+  if (valuetable[c] == 25) Serial.println(modetable[c]);
+  
+  for(byte c=0; c<48; c++)
+  {
+      if (modetable[c] == 11) 
+      for (byte i = 0 ; i <7; i ++)
+        {
+        noteOn(177, valuetable[c+64], i*16, 0);
+        delay(10);
+        }
+  }
+  */
+  
+  }
 
 /*
 void test1() // startup test code

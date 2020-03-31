@@ -257,14 +257,15 @@ Serial.println("raw");
  //readingsXen[indexXen]  = (cs_4_2.capacitiveSensorRaw(2048)/16);
  readingsXen[indexXen]  = (cs_4_2.capacitiveSensorRaw(4096)/32);
 //  Serial.println(readingsXen[indexXen]);
-   Serial.println(cs_4_2.capacitiveSensorRaw(4096)/32);
- // Serial.println(cs_4_2.capacitiveSensorRaw(2048)/16);
+ //  Serial.println(cs_4_2.capacitiveSensorRaw(4096)/32);
+
  #endif
 
  #if (capacitivesensor_active ==1 && stratos == 0)
   if (dmxtable[general_mempos] >1)  
   // readingsXen2[indexXen] = (cs_4_3.capacitiveSensorRaw(72));
   readingsXen2[indexXen] = (cs_4_3.capacitiveSensorRaw(2048)/16);
+  Serial.println(cs_4_3.capacitiveSensorRaw(4096));
 //  Serial.println(readingsXen2[indexXen]);
 // Serial.println(cs_4_3.capacitiveSensorRaw(30000));
 
@@ -295,10 +296,12 @@ Serial.println("raw");
  // totalXen[1]= readingsXen2[0] + readingsXen2[1]+ readingsXen2[2] ;
                      
   averageXen[0] = ((readingsXen[0] + readingsXen[1] + readingsXen[2])  / 3) ;  
-Serial.println("averaged");
- Serial.println(averageXen[0]);
+//Serial.println("averaged");
+// Serial.println(averageXen[0]);
   #if ( stratos == 0 )
   averageXen[1] = ((readingsXen2[0] + readingsXen2[1] + readingsXen2[2])  / 3) ; 
+  Serial.println("averaged");
+ Serial.println(averageXen[1]);
  
  #endif
  /*
@@ -1058,7 +1061,3 @@ void pots ()
 
   }
 }
-
-
-
-
