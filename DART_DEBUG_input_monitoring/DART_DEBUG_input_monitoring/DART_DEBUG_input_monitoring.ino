@@ -1,11 +1,13 @@
 ///////////////////////////
-// DART_SKETCH   v1.69   //
+// DART_INPUT_monitoring //
 // Massimiliano Marchese //
 // Piero pappalardo      //
 // www.dartmobo.com      //
 ///////////////////////////
 
-byte MONITORING_IN = 34; // fare riferimento alla numerazione nuova - ved immagine contenuta in editor/data
+byte MONITORING_IN = 34; // dartmobo input you want to monitor // use the serial monitor (ctrl-shift-m) to read the input values on the selected input
+
+
 
 #define main_encoder 0               // 1 = enabled // 0 = disabled // MAIN ENCODER_ 
 #define capacitivesensor_active 0    // 1 = enabled // 0 = disabled // CAPACITIVE SENSORS_
