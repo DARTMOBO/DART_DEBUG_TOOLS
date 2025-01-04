@@ -2,7 +2,7 @@
 
 ////////////////////////////
 //
-// DART Sketch - 
+// DART MAIN_ENC_TEST 
 // Massimiliano Marchese
 // Piero pappalardo
 // www.dartmobo.com

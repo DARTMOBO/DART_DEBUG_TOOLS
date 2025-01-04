@@ -113,7 +113,10 @@ for( channel = 0; channel < 8; channel++)    /// per ognuno degli 8 channels del
 valore = analogRead(plexer);
 
 if ((chan) == remapper(MONITORING_IN-1)) 
-{Serial.println(valore);
+{
+  
+   Serial.print("analog reading : "); Serial.print(valore);
+   Serial.print(" modetable value : "); Serial.println(modetable[chan]);
 // Serial.println(remapper(MONITORING_IN-1));
 //Serial.println("  /  "); 
 delay(50);}

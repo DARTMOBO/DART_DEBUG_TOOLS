@@ -5,7 +5,7 @@
 // 3xbuttonboards (korova style) can be tested
 // 
 // Massimiliano Marchese
-// Piero pappalardo
+// Piero Pappalardo
 // www.dartmobo.com
 //
 ////////////////////////////

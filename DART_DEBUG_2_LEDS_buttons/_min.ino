@@ -204,14 +204,24 @@ bitWrite(scala[numero+2],i+7,  bitRead(maxvalue[encoder_mempos[numero]+max_modif
     maxvalue[i]=127;
     typetable[i]=144;
     }
-  //    for (byte i = 8; i <max_modifiers; i++) {
-  //  modetable[i]=19;  
-   // }
+ 
+
+// old boards
+/*
    for (byte a = 0; a <4; a++) {
    for (byte i = 0; i <4; i++) {
-   modetable[remapper(i+(a*8))]=0; 
+   modetable[remapper(i+(a*8))]=0;   // non ci sono pot
    typetable[remapper(i+(a*8))]=176;}
    }
+   */
+
+ for (byte a = 0; a <8; a++) 
+ {
+  //modetable[remapper(a)]=0;
+  //modetable[remapper(a+24)]=0;
+  }
+
+   
     general_mempos = 60;
     page_mempos=55;
     mouse_mempos = 59;

@@ -5,7 +5,7 @@
 // www.dartmobo.com      //
 ///////////////////////////
 
-byte MONITORING_IN = 34; // dartmobo input you want to monitor // use the serial monitor (ctrl-shift-m) to read the input values on the selected input
+byte MONITORING_IN = 22; // dartmobo input you want to monitor // use the serial monitor (ctrl-shift-m) to read the input values on the selected input
 
 
 
@@ -153,8 +153,10 @@ byte  eeprom_preset_active ; // activate auxiliary preset at startup;
 byte channel;
 byte plexer;
 byte chan;
+
 const int upper_val = 750;
 const byte lower_val = 255;
+
 int valore; // analog 0-1024 value for 4051 analog readings.
 volatile byte potOut;
 //||||||||||||||||||||||||||||||

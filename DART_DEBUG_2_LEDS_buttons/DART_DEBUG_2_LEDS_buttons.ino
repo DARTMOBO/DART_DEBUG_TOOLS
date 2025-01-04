@@ -5,7 +5,7 @@
 // DartMobo+Controlboards - Test Sketch - for Leonardo Board
 // No preset uploading needed 
 // MIDI in - No
-// MIDI out - Yes, just for pot and button testing
+// MIDI out - no
 // 3xbuttonboards (korova style) can be tested
 // 
 // Massimiliano Marchese
@@ -165,12 +165,14 @@ volatile byte lastbutton[64]; // used to record the previous state of a button -
 volatile byte lightable[65] // ho provato a scendere a 64 - ma si creavano stranissimi problemi di conflitto memoria con buttonled_efx - messaggi midi disordinati etc etc
                //la vecchia lightable era fissa.
  = { //40,
-1,40,3,40,2,40,0,40,
-5,40,7,40,6,40,4,40,
-9,40,11,40,10,40,8,40,
-13,40,15,40,14,40,12,40,
-17,40,19,40,18,40,16,40,
-21,40,23,40,22,40,20,40,
+  0,1,2,3,4,5,6,7,
+// 40,40,40,40,40,40,40,40,
+//0,1,2,3,4,5,6,7,
+40,40,40,40,40,40,40,40,
+8,9,10,11,12,13,14,15,
+40,40,40,40,40,40,40,40,
+40,40,40,40,40,40,40,40,
+40,40,40,40,40,40,40,40,
 };
 
 

@@ -1,13 +1,20 @@
 
-
 ////////////////////////////
 //
-// DART ONE Sketch - Leonardo porting
+// Leds_test
 // Massimiliano Marchese
 // Piero pappalardo
 // www.dartmobo.com
 //
 ////////////////////////////
+
+
+
+
+
+
+
+
 
 
 //#include <MIDIUSB.h>
@@ -144,7 +151,7 @@ byte lower_Xen[2];           // the average
 #define SER_Pin 10 //SER_IN
 #define RCLK_Pin 11 //L_CLOCK
 #define SRCLK_Pin 12 //CLOCK
-#define NUM_REGISTERS 4 // how many registers are in the chain
+#define NUM_REGISTERS 3 // how many registers are in the chain
 Shifter shifter(SER_Pin, RCLK_Pin, SRCLK_Pin, NUM_REGISTERS);
 
 //////////////////////////////////////////////////////////////////////////////////////

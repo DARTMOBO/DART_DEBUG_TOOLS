@@ -6,19 +6,42 @@ if (cycletimer < 250 ) cycletimer++;
    
   {
 
- for (byte i = 0; i < 16; i++) 
+ 
+
+ for (byte i = 0; i < 16; i++)  
  {
   shifter.setPin(encledtable[i], 1);
   shifter.write();
   delay(100);
   }
+
+
+  
    for (byte i = 0; i < 16; i++) 
  {
   shifter.setPin(encledtable[i], 0);
   shifter.write();
   delay(100);
   }
-   
+//--------------------------------------------
+   for (byte i = 16; i < 24; i++)  
+ {
+  shifter.setPin(i, 1);
+  shifter.write();
+  delay(100);
+  }
+
+
+  
+   for (byte i = 16; i < 24; i++) 
+ {
+  shifter.setPin(i, 0);
+  shifter.write();
+  delay(100);
+  }
+
+//_________________________________________________________________________________________________-
+   /*
    for (byte a = 0; a < 2; a++){
    for (byte i = 4; i < 8; i++) 
  {
@@ -34,11 +57,16 @@ if (cycletimer < 250 ) cycletimer++;
   shifter.write();
   delay(100);
   }}
-  
 
-// if (shifterwrite ==1) 
- {shifter.write(); shifterwrite=0;}
+  */
+  
+/*
+ if (shifterwrite ==1) 
+ 
+  
+  {shifter.write(); shifterwrite=0;}
   }
+  */
 
 shifter.setAll(HIGH);
 shifter.write(); 
@@ -46,7 +74,8 @@ delay(400);
 shifter.setAll(LOW); 
 shifter.write();
 delay(400);
- 
+
+  }
 }
 
 
